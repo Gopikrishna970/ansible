@@ -1,0 +1,14 @@
+- name: fetching
+  hosts: 172.31.32.125
+  tasks:
+    - name: fetching data
+      fetch:
+        src: file100
+        dest: /tmp
+- name: coping
+  hosts: 172.31.39.241
+  tasks:
+    - name: coping file
+      copy:
+        src: /tmp/172.31.32.125/file100
+        dest: /tmp

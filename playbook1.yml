@@ -1,0 +1,10 @@
+- name: creating users
+  hosts: all
+  tasks: 
+   - name: user creating
+     user:
+       name: gopi
+       password: 1234
+       uid: 6767
+       home: /tmp/home
+       shell: bin/bash

@@ -1,0 +1,36 @@
+- name: confuguring tomcat9
+  hosts: all
+  tasks:
+    - name: installing tomcat9
+      apt:
+        name: tomcat9
+        state: present
+        update_cache: yes
+    - name: installing tomcat9-admin
+      apt:
+        name: tomcat9-admin
+        state: present
+    - name: copying
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat9
+    - name: replace
+      replace:
+        regexp: 8080
+        replace: 9090
+        path: /etc/tomcat9/server.xml
+    - name: restart
+      service:
+        name: tomcat9
+        state: restarted
+    - name: pausing
+      pause:
+        seconds: 60
+    - name: checking server 1
+      uri:
+        url: http://172.31.32.125:9090
+        status_code: 200
+    - name: checking server 2
+      uri:
+        url: http://172.31.39.241:9090
+        status_code: 200
